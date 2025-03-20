@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import './index.scss'
 const Login = () => {
     const onFinish=(val)=>{
-console.log(val)
+        console.log(val)
     }
     return (
         <div className="login">
