@@ -1,15 +1,26 @@
 import { Layout, Menu, Popconfirm } from "antd"
 import { LogoutOutlined, DiscordOutlined, HomeOutlined, DiffOutlined, EditOutlined } from '@ant-design/icons';
+import { Outlet, useLocation, useNavigate } from "react-router";
 import './index.scss'
 const { Header, Sider } = Layout
 
 const items = [
-    { label: '首页', key: 1, icon: <HomeOutlined /> },
-    { label: '文章管理', key: 2, icon: <DiffOutlined /> },
-    { label: '创建文章', key: 3, icon: <EditOutlined /> },
+    { label: '首页', key: '/', icon: <HomeOutlined /> },
+    { label: '文章管理', key: '/article', icon: <DiffOutlined /> },
+    { label: '创建文章', key: '/publish', icon: <EditOutlined /> },
 ]
 
 const GeekLayout = () => {
+    const navigate = useNavigate()
+    const clickMenu = (e) => {
+        navigate(e.key)
+    }
+
+    // 反向高亮
+    // 1. 获取当前路由路径
+   const location= useLocation()
+   const selectedKey=location.pathname
+
     return <>
         <Layout>
             <Header className="header">
@@ -31,13 +42,16 @@ const GeekLayout = () => {
                 <Sider width={200} className="site-layout-background">
                     <Menu
                         style={{ height: '100%', borderRight: 0 }}
-                        defaultSelectedKeys={['1']}
+                        selectedKeys={selectedKey}
                         mode="inline"
                         theme="dark"
                         items={items}
+                        onClick={clickMenu}
                     />
                 </Sider>
-                <Layout className="layout-content" style={{ padding: 20 }}>内容</Layout>
+                <Layout className="layout-content" style={{ padding: 20 }}>
+                    <Outlet />
+                </Layout>
             </Layout>
 
         </Layout>
