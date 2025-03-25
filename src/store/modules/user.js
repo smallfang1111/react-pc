@@ -1,8 +1,8 @@
 // 和用户相关的状态管理
 import { createSlice } from "@reduxjs/toolkit"
 // import {http} from '@/utills'
-import axios from "axios"
 import { getToken, setToken as _setToken, getLocalStorage, setLocalStorage, removeLocalStorage, removeToken } from "@/utills"
+import { loginApi,getUserInfoApi } from "@/apis/user"
 
 
 const userStore = createSlice({
@@ -40,7 +40,7 @@ const { setToken, setUserInfo,clearUserInfo } = userStore.actions
 // 异步方法 完成登录获取token
 const fetchLogin = (loginForm) => {
     return async (dispatch) => {
-        const res = await axios.post('http://localhost:6565/login', loginForm)
+        const res = await loginApi(loginForm)
         dispatch(setToken(res.data.id))
     }
 }
@@ -48,7 +48,7 @@ const fetchLogin = (loginForm) => {
 // 获取个人用户信息
 const fetchUserInfo = () => {
     return async (dispatch) => {
-        const res = await axios.get('http://localhost:6565/userInfo')
+        const res = await getUserInfoApi()
         dispatch(setUserInfo(res.data))
     }
 }
