@@ -1,33 +1,37 @@
 // 和用户相关的状态管理
+import { createSlice } from "@reduxjs/toolkit"
+// import {http} from '@/utills'
+import axios from "axios"
 
-const { createSlice } = require("@reduxjs/toolkit");
-const { useStore } = require("react-redux");
 
-const userStore= createSlice({
-    name:'user',
+const userStore = createSlice({
+    name: 'user',
     // 数据状态
     initialState:{
-        token:''
+        token: ''
     },
     // 同步修改方法
-    reducers:{
-        setToken(state,action){
-            state.token=action.payload
+    reducers: {
+        setToken(state, action) {
+            // 打印当前状态
+            // 更新状态中的 token 为 action.payload
+            state.token = action.payload
         }
     }
 })
 
 // 解构出action
-const {setToken}=userStore.actions
+const { setToken } = userStore.actions
 
-// 获取reducer 函数
-const userReducer=useStore.reducer
 
 // 异步方法 完成登录获取token
-const fetchLogin=(loginForm)=>{
-
+const fetchLogin = (loginForm) => {
+    return async (dispatch) => {
+        const res = await axios.post('http://localhost:6565/login', loginForm)
+        dispatch(setToken(res.data.id))
+    }
 }
 
-export {setToken}
+export { setToken, fetchLogin }
 
-export default userReducer
+export default userStore.reducer

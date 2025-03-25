@@ -1,0 +1,13 @@
+{
+    "login":[
+        {
+            "success": true,
+            "data": {
+                "token":"vr5whNcW061741245673"
+            },
+            "message": "SUCCESS",
+            "code": 200,
+            "type": null
+          }
+    ]
+}

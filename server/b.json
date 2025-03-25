@@ -1,0 +1,12 @@
+{
+    "goodsList":[
+        {
+            "id":"n652",
+            "goodsTitle":"测试商品1"
+        },
+        {
+            "id":"c1985",
+            "goodsTitle":"测试商品2"
+        }
+    ]
+}
