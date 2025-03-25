@@ -2,13 +2,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 // import {http} from '@/utills'
 import axios from "axios"
+import { getToken ,setToken as _setToken } from "@/utills"
 
 
 const userStore = createSlice({
     name: 'user',
     // 数据状态
     initialState:{
-        token: ''
+        
+        token: getToken()||''
     },
     // 同步修改方法
     reducers: {
@@ -16,6 +18,7 @@ const userStore = createSlice({
             // 打印当前状态
             // 更新状态中的 token 为 action.payload
             state.token = action.payload
+            _setToken(action.payload)
         }
     }
 })
