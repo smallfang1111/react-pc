@@ -4,7 +4,7 @@ const path = require('path');
 // 要合并多少个json文件，在这里列出它们的路径
 const jsonFiles = [
   { source: '../../server/login.json', key: 'login' },
-  { source: '../../server/b.json', key: 'goodsList' },
+  { source: '../../server/userInfo.json', key: 'userInfo' },
 ];
  
 // 初始化合并后的对象

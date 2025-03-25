@@ -1,7 +1,8 @@
 // axios 的封装处理
 
 import axios from "axios";
-import { getToken } from "./token";
+import { getToken, removeToken } from "./token";
+import router from "@/router";
 
 // 1.根域名配置
 // 2.超时时间
@@ -33,6 +34,12 @@ http.interceptors.response.use(function (response) {
   }, function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
+    // 监控401 token失效 清除Token 并跳转到 登录页面
+    if(error.response.status===401){
+      removeToken()
+      router.navigate('/Login')
+      window.location.reload() // 强制刷新页面
+    }
     return Promise.reject(error);
   });
 
