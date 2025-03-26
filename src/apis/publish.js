@@ -5,3 +5,8 @@ const url='http://localhost:6565'
 export const getChannelApi=()=>{
    return axios.get(`${url}/channel`)
 }
+
+// 收集表单数据，发布文章的接口
+export const publishArticleApi=(data)=>{
+    return axios.post(`${url}/publishArticle`, data)
+ }

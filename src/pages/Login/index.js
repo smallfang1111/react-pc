@@ -5,19 +5,18 @@ import { useDispatch } from "react-redux"
 import { fetchLogin } from "@/store/modules/user"
 import { useNavigate } from "react-router-dom"
 const Login = () => {
-    const dispatch=useDispatch()
-    const navigate=useNavigate()
-    const onFinish=async(val)=>{
-       await dispatch(fetchLogin(val))
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [messageApi, contextHolder] = message.useMessage();
+    const onFinish = async (val) => {
+        await dispatch(fetchLogin(val))
         navigate('/')
-        message.info({
-            content:'登录成功！'
-        })
+        messageApi.success('登录成功！');
     }
 
-    
     return (
         <div className="login">
+            {contextHolder}
             <Card className="login-container">
                 <i className={classNames('iconfont', 'icon-guojibanlogo326fanbai-03-03', 'login-logo')} />
                 <Form onFinish={onFinish} validateTrigger="onBlur">
@@ -32,7 +31,7 @@ const Login = () => {
                                 message: '请输入正确的手机号格式!',
                             }
                         ]}>
-                        <Input size="large"  placeholder="请输入手机号" />
+                        <Input size="large" placeholder="请输入手机号" />
                     </Form.Item>
 
                     <Form.Item name="code"

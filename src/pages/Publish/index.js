@@ -1,37 +1,66 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom"
-import { Breadcrumb, Button, Card, Form, Input, Select, Space } from "antd"
+import { Breadcrumb, Button, Card, Form, Input, Radio, Select, Space, Upload, message } from "antd"
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import './index.scss'
-import { getChannelApi } from "@/apis/publish";
+import { publishArticleApi } from "@/apis/publish";
+import { PlusOutlined } from "@ant-design/icons";
+import { useChannel } from "@/hooks/useChannel";
 
 const { Option } = Select
 
 const Publish = () => {
-    // 获取评到列表
+    const [textContent, setTextContent] = useState('');
 
-    const [channelList, setChannelList] = useState([])
-    useEffect(() => {
-        const getChannelList = async () => {
+    const [messageApi, contextHolder] = message.useMessage();
 
-            const res = await getChannelApi()
-            setChannelList(res.data)
+    const { channelList } = useChannel() // 获取评到列表
 
+    const onFinish = async (formData) => {
+        if (imageList.length !== typeName) {
+            messageApi.warning('封面类型和图片数量不匹配！');
+            return
         }
-        getChannelList()
-    }, [])
-    const [value, setValue] = useState('');
+        const { title, content, channel_id } = formData
+        const reqData = {
+            title,
+            content,
+            cover: {
+                type: typeName,
+                images: imageList.map(e => e.thumbUrl)
+            },
+            channel_id
+        }
+        await publishArticleApi(reqData).then(() => {
+            messageApi.success('发布成功');
+        }).catch(err => {
+            messageApi.error('发布失败', err);
+        })
+    }
+
+    // 上传回调
+    const [imageList, setImageList] = useState([])
+    const onChange = (val) => {
+        setImageList(val.fileList)
+    }
+
+    // 封面模式切换
+    const [typeName, setTypeName] = useState(0)
+    const onTypeChange = ({ target: { value } }) => {
+        setTypeName(value)
+    }
     return (
         <div className="publish">
+            {contextHolder}
             <Card title={
                 <Breadcrumb items={[
                     { title: <Link to={'/'}>首页</Link> },
                     { title: '发布文章' }
                 ]} />
             }>
-                <Form labelCol={{ span: 4 }} wrapperCol={{ span: 16 }} initialValues={{ type: 1 }}>
+                <Form labelCol={{ span: 4 }} wrapperCol={{ span: 16 }} initialValues={{ type: 0 }} onFinish={onFinish}>
                     <Form.Item
                         label="标题"
                         name="title"
@@ -52,13 +81,35 @@ const Publish = () => {
                             )}
                         </Select>
                     </Form.Item>
+                    <Form.Item label="封面">
+                        <Form.Item name="type">
+                            <Radio.Group onChange={onTypeChange} value={typeName}>
+                                <Radio value={1}>单图</Radio>
+                                <Radio value={3}>三图</Radio>
+                                <Radio value={0}>无图</Radio>
+                            </Radio.Group>
+                        </Form.Item>
+                        {/* 
+                        listType:决定选择文件框的外观样式
+                        showUploadList：控制显示上传列表
+                        */}
+                        {typeName > 0 &&
+                            <Upload maxCount={typeName} listType="picture-card" showUploadList action={''} name="image" onChange={onChange}>
+                                <div style={{ marginTop: 8 }}>
+                                    <PlusOutlined />
+                                </div>
+                            </Upload>
+                        }
+
+                    </Form.Item>
+
                     <Form.Item
                         label="内容"
                         name="content"
                         rules={[{ required: true, message: '请输入文章内容!' }]}
                     >
                         {/* 富文本编辑器 */}
-                        <ReactQuill className="publish-quill" theme="snow" placeholder="请输入文章内容" value={value} onChange={setValue} />
+                        <ReactQuill className="publish-quill" theme="snow" placeholder="请输入文章内容" value={textContent} onChange={setTextContent} />
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 4 }}>
