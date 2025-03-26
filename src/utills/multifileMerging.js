@@ -5,6 +5,7 @@ const path = require('path');
 const jsonFiles = [
   { source: '../../server/login.json', key: 'login' },
   { source: '../../server/userInfo.json', key: 'userInfo' },
+  { source: '../../server/channel.json', key: 'channel' },
 ];
  
 // 初始化合并后的对象

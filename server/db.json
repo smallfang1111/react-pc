@@ -7,42 +7,49 @@
       },
       "message": "SUCCESS",
       "code": 200,
-      "type": null,
-      "id": "cd27"
-    },
-    {
-      "id": "d827",
-      "phone": "13142130046",
-      "code": "12134"
-    },
-    {
-      "id": "c386",
-      "phone": "13142130046",
-      "code": "1234"
-    },
-    {
-      "id": "dcd8",
-      "phone": "13142130046",
-      "code": "123"
-    },
-    {
-      "id": "6390",
-      "phone": "13142130046",
-      "code": "1234"
-    },
-    {
-      "id": "e7ba",
-      "phone": "13142130046",
-      "code": "1234"
-    },
-    {
-      "id": "b13b",
-      "phone": "13142130046",
-      "code": "123"
+      "type": null
     }
   ],
   "userInfo": {
     "name": "alita",
     "age": 18
-  }
+  },
+  "channel": [
+    {
+      "id": 0,
+      "name": "推荐"
+    },
+    {
+      "id": 1,
+      "name": "vue"
+    },
+    {
+      "id": 2,
+      "name": "react"
+    },
+    {
+      "id": 3,
+      "name": "angular"
+    },
+    {
+      "id": 4,
+      "name": "nuxt"
+    },
+    {
+      "id": 5,
+      "name": "electron"
+    },
+    {
+      "id": 6,
+      "name": "小程序"
+    },
+    {
+      "id": 7,
+      "name": "TypeScript"
+    },
+    {
+      "id": 8,
+      "name": "uniapp"
+    }
+  ]
 }
