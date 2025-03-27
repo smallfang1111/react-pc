@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom"
 import { Breadcrumb, Button, Card, Form, Input, Radio, Select, Space, Upload, message } from "antd"
 import ReactQuill from 'react-quill-new';
@@ -17,8 +17,10 @@ const Publish = () => {
     const [messageApi, contextHolder] = message.useMessage();
 
     const { channelList } = useChannel() // 获取评到列表
+    const formRef = useRef()
 
     const onFinish = async (formData) => {
+
         if (imageList.length !== typeName) {
             messageApi.warning('封面类型和图片数量不匹配！');
             return
@@ -35,6 +37,10 @@ const Publish = () => {
         }
         await publishArticleApi(reqData).then(() => {
             messageApi.success('发布成功');
+            setTimeout(()=>{
+                formRef.current.resetFields()
+            },1000)
+
         }).catch(err => {
             messageApi.error('发布失败', err);
         })
@@ -60,7 +66,7 @@ const Publish = () => {
                     { title: '发布文章' }
                 ]} />
             }>
-                <Form labelCol={{ span: 4 }} wrapperCol={{ span: 16 }} initialValues={{ type: 0 }} onFinish={onFinish}>
+                <Form labelCol={{ span: 4 }} wrapperCol={{ span: 16 }} initialValues={{ type: 0 }} onFinish={onFinish} ref={formRef}>
                     <Form.Item
                         label="标题"
                         name="title"

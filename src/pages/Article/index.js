@@ -1,10 +1,11 @@
-import { Breadcrumb, Card, Form, Select, DatePicker, Radio, Table, Space, Tag, Button } from "antd"
+import { Breadcrumb, Card, Form, Select, DatePicker, Radio, Table, Space, Tag, Button, Popconfirm } from "antd"
 import { Link } from "react-router-dom"
 import locale from "antd/es/date-picker/locale/zh_CN"
 import { useEffect, useState } from "react";
 import { useChannel } from "@/hooks/useChannel";
-import { getArticleListApi } from '@/apis/article'
+import { getArticleListApi,delArticleListApi } from '@/apis/article'
 import classNames from "classnames";
+import { DeleteOutlined } from "@ant-design/icons";
 
 const { Option } = Select
 const Article = () => {
@@ -16,6 +17,11 @@ const Article = () => {
     }
 
     const { channelList } = useChannel() // 获取评到列表
+
+    const handleOk=async(val)=>{
+       await delArticleListApi(val.id)
+       setReqData({...reqData})
+    }
 
     // 准备列数据
     const columns = [{
@@ -57,11 +63,19 @@ const Article = () => {
         key: 'likeNum',
     },
     {
-        title: 'Action',
+        title: '操作',
         key: 'action',
-        render: () => (
+        render: (data) => (
             <Space size="middle">
-
+                <Popconfirm
+                    title="删除文章"
+                    description="确定要删除文章么?"
+                    okText="确认"
+                    cancelText="取消"
+                    onConfirm={()=>handleOk(data)}
+                >
+                    <Button type="primary" danger shape="circle" icon={< DeleteOutlined />}></Button>
+                </Popconfirm>
             </Space>
         ),
     },
@@ -90,7 +104,6 @@ const Article = () => {
 
 
     const onFinish = (val) => {
-        console.log(val.date)
         setReqData({
             channel_id: val.channel_id,
             status: val.status,
@@ -116,7 +129,7 @@ const Article = () => {
                     </Form.Item>
 
                     <Form.Item label="频道" name="channel_id">
-                        <Select placeholder="请选择文章频道" defaultValue="" style={{ width: 250 }}>
+                        <Select placeholder="请选择文章频道"  style={{ width: 250 }}>
                             {channelList.map(item =>
                                 <Option key={item.id} value={item.id}>{item.name}</Option>
                             )}
@@ -138,7 +151,7 @@ const Article = () => {
 
             {/* 表格区域 */}
             <Card title={`根据筛选条件共查询到${count} 条结果：`}>
-                <Table rowKey={'key'} dataSource={list} columns={columns}></Table>
+                <Table rowKey={'id'} dataSource={list} columns={columns}></Table>
             </Card>
         </div>
     )

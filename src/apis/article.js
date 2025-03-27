@@ -14,11 +14,17 @@ export const publishArticleApi=(data)=>{
 
  // 获取文章列表
 export const getArticleListApi=(params)=>{
-   console.log(params)
    return axios({
       method:'get',
       url:`${url}/articleList`,
       params
    })
+}
+
+
+ // 删除文章列表
+ export const delArticleListApi=(params)=>{
+   console.log(params)
+return axios.delete(url+'/articleList/'+params)
 }
 
