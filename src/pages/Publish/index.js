@@ -5,7 +5,7 @@ import { Breadcrumb, Button, Card, Form, Input, Radio, Select, Space, Upload, me
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import './index.scss'
-import { publishArticleApi } from "@/apis/publish";
+import { publishArticleApi } from "@/apis/article";
 import { PlusOutlined } from "@ant-design/icons";
 import { useChannel } from "@/hooks/useChannel";
 

@@ -8,6 +8,7 @@ const jsonFiles = [
   { source: '../../server/channel.json', key: 'channel' },
   { source: '../../server/publishArticle.json', key: 'publishArticle' },
   { source: '../../server/uploadImage.json', key: 'uploadImage' },
+  { source: '../../server/articleList.json', key: 'articleList' },
 ];
  
 // 初始化合并后的对象

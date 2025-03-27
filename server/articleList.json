@@ -1,0 +1,39 @@
+{
+    "articleList": {
+        "pageIndex": 1,
+        "pageSize": 10,
+        "result": [
+            {
+                "key": "1",
+                "cover": "icon-knowledgebase_fill",
+                "title": "这是一张图片，嘻嘻",
+                "status": 1,
+                "createTime": "2025-01-23 20:28:20",
+                "readNum": 202,
+                "commentNum": 12,
+                "likeNum": 52
+            },
+            {
+                "key": "2",
+                "cover": "icon-knowledge",
+                "title": "哈哈哈",
+                "status": 2,
+                "createTime": "2025-04-23 14:20:20",
+                "readNum": 2330,
+                "commentNum": 78,
+                "likeNum": 255
+            },
+            {
+                "key": "3",
+                "cover": "icon-shengdanbingqilin",
+                "title": "大大撒旦撒",
+                "status": 1,
+                "createTime": "2025-02-23 21:20:29",
+                "readNum": 121,
+                "commentNum": 43,
+                "likeNum": 29
+            }
+        ],
+        "totalCount": 3
+    }
+}

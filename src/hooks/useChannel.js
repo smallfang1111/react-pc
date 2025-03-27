@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 
-import { getChannelApi } from "@/apis/publish";
+import { getChannelApi } from "@/apis/article";
 const useChannel = () => {
     // 获取频道列表所有逻辑
 

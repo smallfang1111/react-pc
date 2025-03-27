@@ -10,3 +10,15 @@ export const getChannelApi=()=>{
 export const publishArticleApi=(data)=>{
     return axios.post(`${url}/publishArticle`, data)
  }
+
+
+ // 获取文章列表
+export const getArticleListApi=(params)=>{
+   console.log(params)
+   return axios({
+      method:'get',
+      url:`${url}/articleList`,
+      params
+   })
+}
+
