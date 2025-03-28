@@ -30,7 +30,7 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "serve": "json-server ./server/db.json --port 6565",
-    "analyze":"source0map-explorer 'build/static/js/*.js'"
+    "analyze":"source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": [
